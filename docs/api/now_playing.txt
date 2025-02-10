@@ -1,0 +1,53 @@
+https://api.themoviedb.org/3/movie/now_playing?
+
+"dates": {
+        "maximum": "2025-02-12",
+        "minimum": "2025-01-01"
+    },
+    "page": 1,
+    "results": [
+        {
+            "adult": false,
+            "backdrop_path": "/zOpe0eHsq0A2NvNyBbtT6sj53qV.jpg",
+            "genre_ids": [
+                28,
+                878,
+                35,
+                10751
+            ],
+            "id": 939243,
+            "original_language": "en",
+            "original_title": "Sonic the Hedgehog 3",
+            "overview": "Sonic, Knuckles, and Tails reunite against a powerful new adversary, Shadow, a mysterious villain with powers unlike anything they have faced before. With their abilities outmatched in every way, Team Sonic must seek out an unlikely alliance in hopes of stopping Shadow and protecting the planet.",
+            "popularity": 3180.548,
+            "poster_path": "/d8Ryb8AunYAuycVKDp5HpdWPKgC.jpg",
+            "release_date": "2024-12-19",
+            "title": "Sonic the Hedgehog 3",
+            "video": false,
+            "vote_average": 7.775,
+            "vote_count": 1591
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/v9Du2HC3hlknAvGlWhquRbeifwW.jpg",
+            "genre_ids": [
+                28,
+                12,
+                53
+            ],
+            "id": 539972,
+            "original_language": "en",
+            "original_title": "Kraven the Hunter",
+            "overview": "Kraven Kravinoff's complex relationship with his ruthless gangster father, Nikolai, starts him down a path of vengeance with brutal consequences, motivating him to become not only the greatest hunter in the world, but also one of its most feared.",
+            "popularity": 1872.423,
+            "poster_path": "/nrlfJoxP1EkBVE9pU62L287Jl4D.jpg",
+            "release_date": "2024-12-11",
+            "title": "Kraven the Hunter",
+            "video": false,
+            "vote_average": 6.6,
+            "vote_count": 1093
+        }
+    ],
+    "total_pages": 188,
+    "total_results": 3745
+}
