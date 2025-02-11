@@ -37,6 +37,9 @@ class MovieViewModel @Inject constructor(
     private val _topBarState = MutableStateFlow(TopBarState.NOW_PLAYING)
     val topBarState: StateFlow<TopBarState> = _topBarState
 
+    private val _searchResults = MutableStateFlow<List<MovieModel>>(emptyList())
+    val searchResults: StateFlow<List<MovieModel>> = _searchResults
+
     init {
         loadMovies()
     }
@@ -117,4 +120,27 @@ class MovieViewModel @Inject constructor(
         _movie.value = _movie.value?.let { it.copy(isFavorite = !it.isFavorite) }
     }
 
+
+    fun searchMovies(query: String) {
+        if (query.isBlank()) {
+            _searchResults.value = emptyList()
+            return
+        }
+
+        //TODO: handle response states
+        viewModelScope.launch {
+            try {
+                val response = apiService.searchMovies(AppConfig.API_KEY, query)
+
+                val favoriteIds = sharedPreferencesHelper.getFavoriteMovies()
+
+                _searchResults.value = response.results.map { movie ->
+                    movie.copy(isFavorite = favoriteIds.contains(movie.id))
+                }
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
 }

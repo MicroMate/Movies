@@ -33,7 +33,10 @@ fun MainScreen(
             topBar = {
                 when (topBarState) {
                     TopBarState.NOW_PLAYING -> {
-                        TopAppBarNowPlaying()
+                        TopAppBarNowPlaying(
+                            navController = navController,
+                            viewModel = viewModel,
+                        )
                     }
 
                     TopBarState.DETAILS -> {
