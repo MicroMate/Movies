@@ -11,8 +11,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.michalm.movies.ui.components.TopAppBarDetails
-import com.michalm.movies.ui.components.TopAppBarNowPlaying
+import com.michalm.movies.ui.components.topappbars.TopAppBarDetails
+import com.michalm.movies.ui.components.topappbars.TopAppBarNowPlaying
 import com.michalm.movies.ui.details.DetailsScreen
 import com.michalm.movies.ui.nowplaying.NowPlayingScreen
 import com.michalm.movies.ui.theme.MoviesTheme

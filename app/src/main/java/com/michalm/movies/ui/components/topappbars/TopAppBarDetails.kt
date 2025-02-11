@@ -1,4 +1,4 @@
-package com.michalm.movies.ui.components
+package com.michalm.movies.ui.components.topappbars
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -14,6 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import com.michalm.movies.R
 import com.michalm.movies.ui.MovieViewModel
+import com.michalm.movies.ui.components.FavoriteButton
 
 
 @OptIn(ExperimentalMaterial3Api::class)

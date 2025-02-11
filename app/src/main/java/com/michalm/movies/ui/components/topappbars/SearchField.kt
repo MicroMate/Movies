@@ -1,4 +1,4 @@
-package com.michalm.movies.ui.components
+package com.michalm.movies.ui.components.topappbars
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
