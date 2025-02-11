@@ -25,12 +25,11 @@ class MovieViewModel @Inject constructor(
     private var totalPages = 1
     private var isFetching = false
 
-    private val _responseState =
-        MutableStateFlow<ResponseState<List<MovieModel>>>(ResponseState.Success(emptyList()))
-    val responseState: StateFlow<ResponseState<List<MovieModel>>> = _responseState
+    private val _responseState = MutableStateFlow<ResponseState>(ResponseState.Loading)
+    val responseState: StateFlow<ResponseState> = _responseState
 
-    private val _isLoading = MutableStateFlow(false)
-    val isLoading: StateFlow<Boolean> = _isLoading
+    private val _movieListResult = MutableStateFlow<List<MovieModel>>(emptyList())
+    val movieListResult: StateFlow<List<MovieModel>> = _movieListResult
 
     private val _movie = MutableStateFlow<MovieModel?>(null)
     val movie: StateFlow<MovieModel?> = _movie.asStateFlow()
@@ -56,9 +55,10 @@ class MovieViewModel @Inject constructor(
     }
 
     private fun fetchMovies() {
+
         viewModelScope.launch {
 
-            _isLoading.value = true
+            _responseState.value = ResponseState.Loading
             isFetching = true
 
             try {
@@ -70,26 +70,14 @@ class MovieViewModel @Inject constructor(
                     movie.copy(isFavorite = favoriteIds.contains(movie.id))
                 }
 
-                val updatedMovies = when (val currentState = _responseState.value) {
-
-                    is ResponseState.Success -> {
-                        currentState.data + mappedMovies
-                    }
-
-                    else -> {
-                        mappedMovies
-                    }
-                }
-
-                _responseState.value = ResponseState.Success(updatedMovies)
-
+                _movieListResult.value += mappedMovies
+                _responseState.value = ResponseState.Success
                 currentPage++
 
             } catch (e: Exception) {
                 _responseState.value = ResponseState.Error(e.message ?: "Unknown error")
             } finally {
                 isFetching = false
-                _isLoading.value = false
             }
         }
     }
@@ -99,22 +87,18 @@ class MovieViewModel @Inject constructor(
     }
 
     fun toggleFavorite(movie: MovieModel) {
-        val currentState = _responseState.value
 
-        if (currentState is ResponseState.Success) {
-            val updatedMovies = currentState.data.map {
-                if (it.id == movie.id) {
-                    it.copy(isFavorite = !it.isFavorite)
-                } else {
-                    it
-                }
+        val updatedMovies = _movieListResult.value.map {
+            if (it.id == movie.id) {
+                it.copy(isFavorite = !it.isFavorite)
+            } else {
+                it
             }
-
-            val favoriteIds = updatedMovies.filter { it.isFavorite }.map { it.id }.toSet()
-            sharedPreferencesHelper.saveFavoriteMovies(favoriteIds)
-
-            _responseState.value = ResponseState.Success(updatedMovies)
         }
+        val favoriteIds = updatedMovies.filter { it.isFavorite }.map { it.id }.toSet()
+        sharedPreferencesHelper.saveFavoriteMovies(favoriteIds)
+
+        _movieListResult.value = updatedMovies
 
         _movie.value = _movie.value?.let { it.copy(isFavorite = !it.isFavorite) }
     }

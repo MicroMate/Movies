@@ -1,6 +1,7 @@
 package com.michalm.movies.utils
 
-sealed class ResponseState<out T> {
-    data class Success<T>(val data: T) : ResponseState<T>()
-    data class Error(val message: String) : ResponseState<Nothing>()
+sealed class ResponseState {
+    data object Loading : ResponseState()
+    data object Success : ResponseState()
+    data class Error(val message: String) : ResponseState()
 }

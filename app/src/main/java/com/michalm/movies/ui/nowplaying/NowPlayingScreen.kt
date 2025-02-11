@@ -1,7 +1,9 @@
 package com.michalm.movies.ui.nowplaying
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -9,7 +11,6 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -19,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.michalm.movies.network.MovieModel
 import com.michalm.movies.ui.MovieViewModel
+import com.michalm.movies.ui.components.Banner
 import com.michalm.movies.utils.NavDestinations
 import com.michalm.movies.utils.ResponseState
 
@@ -30,27 +32,34 @@ fun NowPlayingScreen(
     viewModel: MovieViewModel
 ) {
     val responseState by viewModel.responseState.collectAsState()
-    val isLoading by viewModel.isLoading.collectAsState()
+    val movieList by viewModel.movieListResult.collectAsState()
 
     Surface(
         modifier = modifier,
         color = MaterialTheme.colorScheme.background,
     )
     {
-        if (isLoading) {
-            LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-        }
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Top
+        ) {
 
-        when (responseState) {
-            is ResponseState.Success -> {
-                MovieGrid(
-                    movieList = (responseState as ResponseState.Success).data ?: emptyList(),
-                    navController = navController,
-                    viewModel = viewModel
-                )
+            when (responseState) {
+                is ResponseState.Loading -> {
+                    LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+                }
+
+                is ResponseState.Error ->
+                    Banner(text = (responseState as ResponseState.Error).message)
+
+                else -> {}
             }
-            is ResponseState.Error ->
-                Text((responseState as ResponseState.Error).message)
+            MovieGrid(
+                movieList = movieList,
+                navController = navController,
+                viewModel = viewModel
+            )
         }
     }
 }
