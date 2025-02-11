@@ -28,9 +28,10 @@ class MovieViewModel @Inject constructor(
     private val _responseState =
         MutableStateFlow<ResponseState<List<MovieModel>>>(ResponseState.Success(emptyList()))
     val responseState: StateFlow<ResponseState<List<MovieModel>>> = _responseState
-    private val _isLoading = MutableStateFlow(false)
 
+    private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
+
     private val _movie = MutableStateFlow<MovieModel?>(null)
     val movie: StateFlow<MovieModel?> = _movie.asStateFlow()
 
@@ -93,11 +94,9 @@ class MovieViewModel @Inject constructor(
         }
     }
 
-
     fun selectMovie(movie: MovieModel) {
         _movie.value = movie
     }
-
 
     fun toggleFavorite(movie: MovieModel) {
         val currentState = _responseState.value
@@ -119,7 +118,6 @@ class MovieViewModel @Inject constructor(
 
         _movie.value = _movie.value?.let { it.copy(isFavorite = !it.isFavorite) }
     }
-
 
     fun searchMovies(query: String) {
         if (query.isBlank()) {
