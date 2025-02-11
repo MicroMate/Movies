@@ -9,10 +9,12 @@ API from [TMDB](https://www.themoviedb.org/)
 - Movie details screen.
 - Mark movies as favorites and save the state.
 - Search for movies with autocomplete.
+- Automatic light/dark mode.
 
 ## Tech Stack
 - Language: Kotlin
 - UI: Jetpack Compose
+- UI Design: Material3
 - Architecture: MVVM
 - Dependency Injection: Hilt
 - Networking: Retrofit
