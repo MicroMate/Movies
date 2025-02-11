@@ -1,6 +1,7 @@
 package com.michalm.movies.ui.components.topappbars
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -49,6 +50,7 @@ fun TopAppBarNowPlaying(
             title = {
                 if (isSearch) {
                     SearchField(
+                        modifier = Modifier.fillMaxWidth(),
                         query = query,
                         viewModel = viewModel,
                         onValueChange = { query = it }
