@@ -40,10 +40,6 @@ class MovieViewModel @Inject constructor(
     private val _searchResults = MutableStateFlow<List<MovieModel>>(emptyList())
     val searchResults: StateFlow<List<MovieModel>> = _searchResults
 
-    init {
-        loadMovies()
-    }
-
     fun setTopBarState(state: TopBarState) {
         _topBarState.value = state
     }
