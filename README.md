@@ -20,6 +20,7 @@ API from [TMDB](https://www.themoviedb.org/)
 - Networking: Retrofit
 - State Management: StateFlow
 - Local Storage: SharedPreferences
+- Testing: JUnit, MockK
 
 ## Build
 - Min SDK: 26 (Android 8.0 Oreo)
