@@ -26,19 +26,19 @@ class MovieViewModel @Inject constructor(
     private var isFetching = false
 
     private val _responseState = MutableStateFlow<ResponseState>(ResponseState.Loading)
-    val responseState: StateFlow<ResponseState> = _responseState
+    val responseState: StateFlow<ResponseState> = _responseState.asStateFlow()
 
     private val _movieListResult = MutableStateFlow<List<MovieModel>>(emptyList())
-    val movieListResult: StateFlow<List<MovieModel>> = _movieListResult
+    val movieListResult: StateFlow<List<MovieModel>> = _movieListResult.asStateFlow()
 
     private val _movie = MutableStateFlow<MovieModel?>(null)
     val movie: StateFlow<MovieModel?> = _movie.asStateFlow()
 
     private val _topBarState = MutableStateFlow(TopBarState.NOW_PLAYING)
-    val topBarState: StateFlow<TopBarState> = _topBarState
+    val topBarState: StateFlow<TopBarState> = _topBarState.asStateFlow()
 
     private val _searchResults = MutableStateFlow<List<MovieModel>>(emptyList())
-    val searchResults: StateFlow<List<MovieModel>> = _searchResults
+    val searchResults: StateFlow<List<MovieModel>> = _searchResults.asStateFlow()
 
     fun setTopBarState(state: TopBarState) {
         _topBarState.value = state
