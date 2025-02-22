@@ -80,23 +80,29 @@ class MovieViewModel @Inject constructor(
 
     fun selectMovie(movie: MovieModel) {
         _movie.value = movie
+        if (!_movieListResult.value.contains(movie)) {
+            _movie.value?.isFavorite = sharedPreferencesHelper.isFavoriteMovie(movie.id)
+        }
     }
 
-    fun toggleFavorite(movie: MovieModel) {
-
-        val updatedMovies = _movieListResult.value.map {
-            if (it.id == movie.id) {
-                it.copy(isFavorite = !it.isFavorite)
-            } else {
-                it
+    fun toggleFavorite(movie: MovieModel, fromDetails: Boolean = false) {
+        if (_movieListResult.value.contains(movie)) {
+            _movieListResult.value = _movieListResult.value.map {
+                if (it.id == movie.id) {
+                    it.copy(isFavorite = !it.isFavorite)
+                } else {
+                    it
+                }
             }
         }
-        val favoriteIds = updatedMovies.filter { it.isFavorite }.map { it.id }.toSet()
-        sharedPreferencesHelper.saveFavoriteMovies(favoriteIds)
 
-        _movieListResult.value = updatedMovies
+        if (fromDetails) {
+            _movie.value = _movie.value?.let {
+                it.copy(isFavorite = !it.isFavorite)
+            }
+        }
 
-        _movie.value = _movie.value?.let { it.copy(isFavorite = !it.isFavorite) }
+        sharedPreferencesHelper.toggleFavoriteMovie(movie.id)
     }
 
     fun searchMovies(query: String) {

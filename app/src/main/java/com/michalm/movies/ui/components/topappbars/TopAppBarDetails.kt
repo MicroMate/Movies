@@ -48,7 +48,9 @@ fun TopAppBarDetails(
             movie?.let { movie ->
                 FavoriteButton(
                     isFavorite = movie.isFavorite,
-                    onClick = { viewModel.toggleFavorite(movie) }
+                    onClick = {
+                        viewModel.toggleFavorite(movie = movie, fromDetails = true)
+                    }
                 )
             }
         },

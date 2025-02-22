@@ -14,7 +14,7 @@ class SharedPreferencesHelper(context: Context) {
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences(PREFS_FILE_NAME, Context.MODE_PRIVATE)
 
-    fun saveFavoriteMovies(favoriteMovieIds: Set<Int>) {
+    private fun saveFavoriteMovies(favoriteMovieIds: Set<Int>) {
 
         val stringSet = favoriteMovieIds.map { it.toString() }.toSet()
 
@@ -28,5 +28,19 @@ class SharedPreferencesHelper(context: Context) {
         val stringSet =
             sharedPreferences.getStringSet(KEY_FAVORITE_MOVIES, emptySet()) ?: emptySet()
         return stringSet.mapNotNull { it.toIntOrNull() }.toSet()
+    }
+
+    fun isFavoriteMovie(movieId: Int): Boolean {
+        return getFavoriteMovies().contains(movieId)
+    }
+
+    fun toggleFavoriteMovie(movieId: Int) {
+        val favoriteMovies = getFavoriteMovies().toMutableSet()
+        if (favoriteMovies.contains(movieId)) {
+            favoriteMovies.remove(movieId)
+        } else {
+            favoriteMovies.add(movieId)
+        }
+        saveFavoriteMovies(favoriteMovies)
     }
 }

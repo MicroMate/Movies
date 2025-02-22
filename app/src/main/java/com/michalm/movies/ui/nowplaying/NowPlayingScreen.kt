@@ -84,7 +84,9 @@ fun MovieGrid(
                     viewModel.selectMovie(movie)
                     navController.navigate(NavDestinations.MOVIE_DETAILS_ROUTE)
                 },
-                onFavoriteClick = { viewModel.toggleFavorite(it) }
+                onFavoriteClick = {
+                    viewModel.toggleFavorite(movie = it, fromDetails = false)
+                }
             )
         }
         item {
