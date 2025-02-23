@@ -1,4 +1,4 @@
-package com.michalm.movies.ui.components.topappbars
+package com.michalm.movies.ui.topappbars
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
