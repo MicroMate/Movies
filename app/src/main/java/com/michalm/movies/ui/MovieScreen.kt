@@ -26,7 +26,7 @@ import com.michalm.movies.utils.TopBarState
 
 
 @Composable
-fun MainScreen(
+fun MovieScreen(
     viewModel: MovieViewModel = hiltViewModel()
 ) {
     val navController = rememberNavController()
