@@ -40,6 +40,12 @@ class MovieViewModel @Inject constructor(
     private val _searchResults = MutableStateFlow<List<MovieModel>>(emptyList())
     val searchResults: StateFlow<List<MovieModel>> = _searchResults.asStateFlow()
 
+    private val _isSearch = MutableStateFlow(false)
+    val isSearch: StateFlow<Boolean> = _isSearch.asStateFlow()
+
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
+
     fun setTopBarState(state: TopBarState) {
         _topBarState.value = state
     }
@@ -106,6 +112,8 @@ class MovieViewModel @Inject constructor(
     }
 
     fun searchMovies(query: String) {
+        _searchQuery.value = query
+
         if (query.isBlank()) {
             _searchResults.value = emptyList()
             return
@@ -126,5 +134,9 @@ class MovieViewModel @Inject constructor(
                 e.printStackTrace()
             }
         }
+    }
+
+    fun setSearchState(state: Boolean) {
+        _isSearch.value = state
     }
 }

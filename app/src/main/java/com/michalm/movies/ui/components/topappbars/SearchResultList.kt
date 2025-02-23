@@ -15,7 +15,10 @@ import com.michalm.movies.network.MovieModel
 
 
 @Composable
-fun SearchResultList(movieList: List<MovieModel>, onMovieClick: (MovieModel) -> Unit) {
+fun SearchResultList(
+    movieList: List<MovieModel>,
+    onMovieClick: (MovieModel) -> Unit
+) {
     LazyColumn {
         items(movieList) { movie ->
             MovieItem(movie, onMovieClick)
@@ -34,7 +37,6 @@ fun MovieItem(
             .padding(8.dp)
             .clickable { onMovieClick(movie) }
     ) {
-
         Column(modifier = Modifier.padding(start = 8.dp)) {
             movie.title?.let { Text(text = it) }
         }

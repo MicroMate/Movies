@@ -33,6 +33,9 @@ fun NowPlayingScreen(
 ) {
     val responseState by viewModel.responseState.collectAsState()
     val movieList by viewModel.movieListResult.collectAsState()
+    val searchResults by viewModel.searchResults.collectAsState()
+    val isSearch by viewModel.isSearch.collectAsState()
+    val searchQuery by viewModel.searchQuery.collectAsState()
 
     Surface(
         modifier = modifier,
@@ -57,6 +60,14 @@ fun NowPlayingScreen(
             }
             MovieGrid(
                 movieList = movieList,
+                navController = navController,
+                viewModel = viewModel
+            )
+        }
+
+        if (isSearch && searchQuery.isNotBlank()) {
+            SearchSection(
+                searchResults = searchResults,
                 navController = navController,
                 viewModel = viewModel
             )

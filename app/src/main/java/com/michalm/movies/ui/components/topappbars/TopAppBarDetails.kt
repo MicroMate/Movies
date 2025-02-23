@@ -44,7 +44,6 @@ fun TopAppBarDetails(
             }
         },
         actions = {
-
             movie?.let { movie ->
                 FavoriteButton(
                     isFavorite = movie.isFavorite,
