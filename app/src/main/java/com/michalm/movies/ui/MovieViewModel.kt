@@ -119,8 +119,8 @@ class MovieViewModel @Inject constructor(
             return
         }
 
-        //TODO: handle response states
         viewModelScope.launch {
+            _responseState.value = ResponseState.Loading
             try {
                 val response = apiService.searchMovies(AppConfig.API_KEY, query)
 
@@ -130,8 +130,10 @@ class MovieViewModel @Inject constructor(
                     movie.copy(isFavorite = favoriteIds.contains(movie.id))
                 }
 
+                _responseState.value = ResponseState.Success
+
             } catch (e: Exception) {
-                e.printStackTrace()
+                _responseState.value = ResponseState.Error(e.message ?: "Unknown error")
             }
         }
     }
