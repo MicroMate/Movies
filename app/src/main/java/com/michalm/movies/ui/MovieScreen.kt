@@ -2,9 +2,7 @@ package com.michalm.movies.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -15,6 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.michalm.movies.ui.components.Banner
+import com.michalm.movies.ui.components.LoadingIndicator
 import com.michalm.movies.ui.details.DetailsScreen
 import com.michalm.movies.ui.nowplaying.NowPlayingScreen
 import com.michalm.movies.ui.theme.MoviesTheme
@@ -55,16 +54,10 @@ fun MovieScreen(
         ) { innerPadding ->
 
             Column(modifier = Modifier.padding(innerPadding)) {
-                when (responseState) {
-                    is ResponseState.Loading -> {
-                        LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-                    }
+                LoadingIndicator(responseState is ResponseState.Loading)
 
-                    is ResponseState.Error ->
-                        Banner(text = (responseState as ResponseState.Error).message)
-
-                    else -> {}
-                }
+                if (responseState is ResponseState.Error)
+                    Banner(text = (responseState as ResponseState.Error).message)
 
                 NavHost(navController, startDestination = NavDestinations.MOVIE_NOW_PLAYING_ROUTE) {
                     composable(NavDestinations.MOVIE_NOW_PLAYING_ROUTE) {
