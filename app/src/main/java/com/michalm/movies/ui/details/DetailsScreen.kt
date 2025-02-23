@@ -12,22 +12,20 @@ import com.michalm.movies.ui.MovieViewModel
 
 @Composable
 fun DetailsScreen(
-    modifier: Modifier,
     viewModel: MovieViewModel,
 ) {
     val scrollState = rememberScrollState()
     val movie by viewModel.movie.collectAsState()
 
     Surface(
-        color = MaterialTheme.colorScheme.background,
-        modifier = modifier
+        modifier = Modifier
             .verticalScroll(scrollState),
+        color = MaterialTheme.colorScheme.background
     )
     {
         movie?.let { movie ->
             DetailsContent(movie)
         }
-
     }
 }
 
