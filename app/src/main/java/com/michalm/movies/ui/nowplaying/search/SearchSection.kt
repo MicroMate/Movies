@@ -1,4 +1,4 @@
-package com.michalm.movies.ui.nowplaying
+package com.michalm.movies.ui.nowplaying.search
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -14,7 +14,6 @@ import androidx.navigation.NavController
 import com.michalm.movies.R
 import com.michalm.movies.network.MovieModel
 import com.michalm.movies.ui.MovieViewModel
-import com.michalm.movies.ui.components.topappbars.SearchResultList
 import com.michalm.movies.utils.NavDestinations
 
 @Composable

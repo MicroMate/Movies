@@ -1,4 +1,4 @@
-package com.michalm.movies.ui.nowplaying
+package com.michalm.movies.ui.nowplaying.movielist
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
